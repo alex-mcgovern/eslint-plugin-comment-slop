@@ -29,6 +29,7 @@ export default defineConfig([
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
       '@typescript-eslint/no-unsafe-type-assertion': 'error',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'comment-slop/write-good': 'error',
       'comment-slop/write-short': ['error', 120],
       'import/no-extraneous-dependencies': [
         'error',

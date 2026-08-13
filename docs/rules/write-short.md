@@ -2,7 +2,7 @@
 
 # `write-short`
 
-Enforces a maximum length on each **logical comment**'s normalized prose.
+Caps the length of each **logical comment**.
 
 A logical comment is:
 
@@ -11,15 +11,14 @@ A logical comment is:
 - one prose section of a JSDoc block — the description, or one tag's description. Tag names,
   `{type}` annotations, and parameter names never count.
 
-Normalization strips comment markers, `*` gutters, and repeated whitespace, and collapses line
-breaks to single spaces — so the limit measures prose, not formatting, and a paragraph split
-across many short lines is still judged as one unit.
+The limit measures prose, not formatting: reformatting a comment, or wrapping it across lines,
+never changes its length.
 
 Tooling directives (`eslint-disable*`, `@ts-expect-error`, `biome-ignore`, `prettier-ignore`,
-coverage and bundler pragmas, and similar) are exempt. A directive's justification is linted as
-ordinary prose under the containing comment's kind.
+coverage and bundler pragmas, and similar) stay exempt. The rule lints a directive's justification
+as ordinary prose.
 
-There is no autofix: shortening prose is a writing decision, not a mechanical one.
+The rule provides no autofix: shortening prose is a writing decision, not a mechanical one.
 
 ## Options
 
@@ -35,12 +34,12 @@ Or an object with per-kind limits; omitted kinds default to `80`, and `false` di
 'comment-slop/write-short': ['warn', { line: 80, block: 120, jsdoc: false }]
 ```
 
-| Option             | Type              | Default              | Description                                                            |
-| :----------------- | :---------------- | :------------------- | :--------------------------------------------------------------------- |
-| `line`             | `number \| false` | `80`                 | Limit for `//` comments, including merged runs of adjacent lines.      |
-| `block`            | `number \| false` | `80`                 | Limit for `/* ... */` comments that are not JSDoc.                     |
-| `jsdoc`            | `number \| false` | `80`                 | Limit for each prose section of a `/** ... */` block.                  |
-| `jsdocIgnoredTags` | `string[]`        | `['example', 'see']` | JSDoc tags whose sections are never checked. Replaces the default set. |
+| Option             | Type              | Default              | Description                                                                |
+| :----------------- | :---------------- | :------------------- | :------------------------------------------------------------------------- |
+| `line`             | `number \| false` | `80`                 | Limit for `//` comments, including merged runs of adjacent lines.          |
+| `block`            | `number \| false` | `80`                 | Limit for `/* ... */` comments that are not JSDoc.                         |
+| `jsdoc`            | `number \| false` | `80`                 | Limit for each prose section of a `/** ... */` block.                      |
+| `jsdocIgnoredTags` | `string[]`        | `['example', 'see']` | JSDoc tags whose sections the rule never checks. Replaces the default set. |
 
 ## Examples
 

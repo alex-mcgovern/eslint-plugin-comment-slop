@@ -30,6 +30,7 @@ function extractRuleOverview(ruleName: string): string {
     .replace(/\n?\s*\*\/$/u, '')
     .split('\n')
     .map((line) => line.replace(/^\s*\* ?/u, ''))
+    .filter((line) => line.trim() !== '@example')
     .join('\n')
     .replaceAll('*\\/', '*/')
     .trim()
