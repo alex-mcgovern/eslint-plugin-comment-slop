@@ -1,0 +1,43 @@
+name: on-main
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: on-main-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  lint:
+    name: Lint
+    uses: ./.github/workflows/_lint.yml
+
+  test:
+    name: Test
+    uses: ./.github/workflows/_test.yml
+
+  build:
+    name: Build
+    uses: ./.github/workflows/_build.yml
+
+  release-please:
+    name: Release please
+    permissions:
+      contents: write # create release commits, tags, and GitHub releases
+      pull-requests: write # open and update the release PR
+    uses: ./.github/workflows/_release-please.yml
+    secrets:
+      RELEASE_PLEASE_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+  release:
+    name: Release
+    needs: [lint, test, build, release-please]
+    if: needs.release-please.outputs.release_created == 'true'
+    permissions:
+      contents: read # checkout
+      id-token: write # npm provenance
+    uses: ./.github/workflows/_release.yml
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

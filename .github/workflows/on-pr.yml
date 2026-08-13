@@ -1,0 +1,24 @@
+name: on-pr
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - main
+
+concurrency:
+  group: on-pr-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    uses: ./.github/workflows/_lint.yml
+
+  test:
+    name: Test
+    uses: ./.github/workflows/_test.yml
+
+  build:
+    name: Build
+    uses: ./.github/workflows/_build.yml
