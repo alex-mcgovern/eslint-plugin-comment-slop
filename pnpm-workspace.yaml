@@ -1,0 +1,26 @@
+# Supply-chain safety settings, carried over from the repo this package was spiked in.
+# This is a single-package repo (no workspace `packages:` globs) — pnpm v10 still reads
+# these root settings from here.
+
+overrides:
+  # chokidar@4.0.3 is a transitive dep of tsup, and that version is missing provenance.
+  # chokidar author states v4->v5 contains no breaking changes other than node version.
+  chokidar: '5.0.0'
+
+# Refuse packages published less than 7 days ago — a compromised release is usually
+# yanked within that window.
+minimumReleaseAge: 10080 # 7 days in minutes
+
+# Reject dependencies pulled from non-registry (git/tarball/URL) sources anywhere in the tree.
+blockExoticSubdeps: true
+
+# Save exact versions on `pnpm add`, never a caret range.
+saveExact: true
+
+# Never accept a package whose provenance/trust is weaker than what the lockfile recorded.
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  # semver@7.x has provenance attestation. Because the v6 and v7 branches were both maintained
+  # and published around the same time, some semver@7 releases with provenance have an earlier
+  # publish timestamp than semver@6.3.1 (which has no provenance), which reads as a downgrade.
+  - 'semver@6.3.1'

@@ -1,0 +1,57 @@
+{
+  "name": "eslint-plugin-comment-slop",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ESLint rules against comment slop: length limits evaluated per logical comment, not per line.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "codegen": "node --import tsx scripts/gen-rule-docs.ts",
+    "dev": "tsup --watch --no-clean --no-dts",
+    "fix": "pnpm run lint:fix && pnpm run prettier:fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier --write .",
+    "test": "vitest run",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "comment-parser": "1.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "25.5.0",
+    "eslint": "9.39.4",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-eslint-plugin": "7.6.1",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-jsdoc": "62.9.0",
+    "eslint-plugin-perfectionist": "5.7.0",
+    "handlebars": "4.7.9",
+    "jiti": "2.6.1",
+    "prettier": "3.8.1",
+    "prettier-plugin-packagejson": "3.0.2",
+    "tsup": "8.5.1",
+    "tsx": "4.21.0",
+    "typescript": "6.0.2",
+    "typescript-eslint": "8.58.0",
+    "vitest": "4.1.2"
+  },
+  "peerDependencies": {
+    "eslint": ">=9"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

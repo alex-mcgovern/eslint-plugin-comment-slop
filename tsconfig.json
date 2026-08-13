@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext"
+  },
+  "include": ["src/**/*", "scripts/**/*", "eslint.config.ts", "tsup.config.ts", "vitest.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}
