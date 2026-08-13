@@ -3,6 +3,4 @@ coverage
 pnpm-lock.yaml
 tsup.config.bundled_*.mjs
 *.hbs
-
-# Generated and formatted by release-please
 CHANGELOG.md
