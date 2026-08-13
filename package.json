@@ -33,10 +33,12 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "comment-parser": "1.4.1"
+    "comment-parser": "1.4.1",
+    "write-good": "1.0.8"
   },
   "devDependencies": {
     "@types/node": "25.5.0",
+    "@types/write-good": "1.0.3",
     "eslint": "9.39.4",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-eslint-plugin": "7.6.1",

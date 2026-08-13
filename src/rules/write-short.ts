@@ -12,7 +12,7 @@ const LIMIT_SCHEMA = { anyOf: [{ minimum: 1, type: 'integer' }, { enum: [false] 
 
 /* eslint-disable comment-slop/write-short -- this block is the rule's documentation, extracted by codegen */
 /**
- * Enforces a maximum length on each **logical comment**'s normalized prose.
+ * Caps the length of each **logical comment**.
  *
  * A logical comment is:
  *
@@ -21,15 +21,14 @@ const LIMIT_SCHEMA = { anyOf: [{ minimum: 1, type: 'integer' }, { enum: [false] 
  * - one prose section of a JSDoc block — the description, or one tag's description. Tag names,
  *   `{type}` annotations, and parameter names never count.
  *
- * Normalization strips comment markers, `*` gutters, and repeated whitespace, and collapses line
- * breaks to single spaces — so the limit measures prose, not formatting, and a paragraph split
- * across many short lines is still judged as one unit.
+ * The limit measures prose, not formatting: reformatting a comment, or wrapping it across lines,
+ * never changes its length.
  *
  * Tooling directives (`eslint-disable*`, `@ts-expect-error`, `biome-ignore`, `prettier-ignore`,
- * coverage and bundler pragmas, and similar) are exempt. A directive's justification is linted as
- * ordinary prose under the containing comment's kind.
+ * coverage and bundler pragmas, and similar) stay exempt. The rule lints a directive's justification
+ * as ordinary prose.
  *
- * There is no autofix: shortening prose is a writing decision, not a mechanical one.
+ * The rule provides no autofix: shortening prose is a writing decision, not a mechanical one.
  *
  * ## Options
  *
@@ -50,7 +49,7 @@ const LIMIT_SCHEMA = { anyOf: [{ minimum: 1, type: 'integer' }, { enum: [false] 
  * | `line` | `number \| false` | `80` | Limit for `//` comments, including merged runs of adjacent lines. |
  * | `block` | `number \| false` | `80` | Limit for `/* ... *\/` comments that are not JSDoc. |
  * | `jsdoc` | `number \| false` | `80` | Limit for each prose section of a `/** ... *\/` block. |
- * | `jsdocIgnoredTags` | `string[]` | `['example', 'see']` | JSDoc tags whose sections are never checked. Replaces the default set. |
+ * | `jsdocIgnoredTags` | `string[]` | `['example', 'see']` | JSDoc tags whose sections the rule never checks. Replaces the default set. |
  */
 /* eslint-enable comment-slop/write-short */
 export const writeShort: Rule.RuleModule = {

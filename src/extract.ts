@@ -1,12 +1,12 @@
 import type { SourceCode } from 'eslint'
 
-import type { TextChunk } from './normalize.js'
+import type { TextChunk, WordSpan } from './normalize.js'
 
 import { matchDirective } from './directives.js'
 import { DEFAULT_IGNORED_JSDOC_TAGS, extractJsdocSections } from './jsdoc.js'
 import { buildNormalizedText } from './normalize.js'
 
-/** The kinds of logical comment the rules can be configured against. */
+/** The kinds of logical comment the rules can target. */
 export type LogicalCommentKind = 'block' | 'jsdoc' | 'line'
 
 interface ExtractOptions {
@@ -19,6 +19,7 @@ export interface LogicalComment {
   label: string
   range: [number, number]
   text: string
+  words: WordSpan[]
 }
 
 type SourceComment = ReturnType<SourceCode['getAllComments']>[number]
@@ -148,9 +149,9 @@ function buildLogicalComment(
   label: string,
   explicitRange?: [number, number],
 ): LogicalComment | null {
-  const { sourceSpan, text } = buildNormalizedText(chunks)
+  const { sourceSpan, text, words } = buildNormalizedText(chunks)
   if (!sourceSpan) return null
-  return { kind, label, range: explicitRange ?? sourceSpan, text }
+  return { kind, label, range: explicitRange ?? sourceSpan, text, words }
 }
 
 function requireRange(comment: SourceComment): [number, number] {

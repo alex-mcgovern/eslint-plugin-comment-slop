@@ -1,15 +1,14 @@
 # eslint-plugin-comment-slop
 
-ESLint rules against comment slop.
+ESLint rules that keep comments **short** and **well-written**.
 
-Comment length is evaluated per **logical comment** — a run of adjacent `//` lines, a block
-comment, or one JSDoc prose section — never line by line. A paragraph wrapped across ten short
-lines is judged as the single unit it really is.
+Each rule judges a comment as one **logical comment** — a run of adjacent `//` lines, a block
+comment, or one JSDoc prose section — so a paragraph wrapped across several lines is treated as one
+unit, never nitpicked line by line.
 
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Rules](#rules)
-- [Design](#design)
 - [Development](#development)
 
 ## Installation
@@ -31,6 +30,7 @@ export default [
     plugins: { 'comment-slop': commentSlop },
     rules: {
       'comment-slop/write-short': ['warn', 120],
+      'comment-slop/write-good': 'warn',
     },
   },
 ]
@@ -40,27 +40,13 @@ No preset configurations are shipped at this time.
 
 ## Rules
 
-| Rule                                         | Description                                   | 💡  | 🔧  |
-| :------------------------------------------- | :-------------------------------------------- | :-- | :-- |
-| [`write-short`](./docs/rules/write-short.md) | Enforce a maximum length per logical comment. |     |     |
+| Rule                                         | Description                                              | 💡  | 🔧  |
+| :------------------------------------------- | :------------------------------------------------------- | :-- | :-- |
+| [`write-short`](./docs/rules/write-short.md) | Cap the length of each comment.                          |     |     |
+| [`write-good`](./docs/rules/write-good.md)   | Flag weak prose — passive voice, weasel words, and more. |     |     |
 
 Rule documentation is generated from the rule's own test suite, so every documented example is
 verified behavior.
-
-## Design
-
-Three principles shape the rules:
-
-1. **Logical comments, not lines.** Consecutive own-line `//` comments merge into one unit;
-   blank lines, code, and directives break the run. Length is measured on normalized prose
-   (markers, `*` gutters, and repeated whitespace stripped), so reformatting a comment never
-   changes its measured length.
-2. **JSDoc is structured prose.** Each section — the description, and each tag's description —
-   is judged independently. Tag names, `{type}` annotations, and parameter names never count.
-   Reference-bearing tags (`@see`, `@example` by default) are exempt.
-3. **Directives are not prose.** `eslint-disable*`, `@ts-expect-error`, `biome-ignore`,
-   `prettier-ignore`, coverage and bundler pragmas, and similar are never length-checked. Their
-   human-written justifications are.
 
 ## Development
 
@@ -77,3 +63,10 @@ markdown JSDoc overview on the exported rule), `src/rules/<name>.cases.ts` (test
 also the documentation examples), and generated `docs/rules/<name>.md`. To change rule behavior:
 update the implementation and cases, then run `pnpm codegen` — the test suite fails if the
 generated documentation drifts.
+
+## Credits
+
+`write-good` is a tribute to
+[`eslint-plugin-write-good-comments`](https://github.com/kantord/eslint-plugin-write-good-comments)
+by [Dániel Kántor](https://github.com/kantord), reworked onto this plugin's logical-comment model.
+The prose analysis is powered by [`write-good`](https://github.com/btford/write-good) by Brian Ford.
