@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-comment-slop",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "ESLint rules against comment slop: length limits evaluated per logical comment, not per line.",
   "repository": {
     "type": "git",
