@@ -18,7 +18,7 @@ interface InvalidCase extends ValidCase {
   errors: ExpectedError[]
 }
 
-/** A themed group of cases from a rule's `<name>.cases.ts`, rendered as one docs section. */
+/** A themed group of a rule's cases, rendered as one docs section. */
 export interface CaseGroup {
   description: string
   invalid: InvalidCase[]

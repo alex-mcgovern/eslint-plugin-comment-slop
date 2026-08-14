@@ -15,8 +15,8 @@ The limit measures prose, not formatting: reformatting a comment, or wrapping it
 never changes its length.
 
 Tooling directives (`eslint-disable*`, `@ts-expect-error`, `biome-ignore`, `prettier-ignore`,
-coverage and bundler pragmas, and similar) stay exempt. The rule lints a directive's justification
-as ordinary prose.
+coverage and bundler pragmas, and similar) stay exempt. The rule lints the justification a
+directive carries as prose.
 
 The rule provides no autofix: shortening prose is a writing decision, not a mechanical one.
 

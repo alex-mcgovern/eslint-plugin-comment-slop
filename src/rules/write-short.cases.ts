@@ -17,7 +17,6 @@ const LONG_REFERENCE_URL =
 
 const TAG_SECTION_LINE = ` * @param dueDate - ${LONG_PARAM_PROSE}`
 
-/** Every `write-short` case, grouped by theme; run as tests and rendered as documentation. */
 export const caseGroups: CaseGroup[] = [
   {
     description:

@@ -44,6 +44,7 @@ No preset configurations are shipped at this time.
 | :------------------------------------------- | :------------------------------------------------------- | :-- | :-- |
 | [`write-short`](./docs/rules/write-short.md) | Cap the length of each comment.                          |     |     |
 | [`write-good`](./docs/rules/write-good.md)   | Flag weak prose — passive voice, weasel words, and more. |     |     |
+| [`write-clear`](./docs/rules/write-clear.md) | Flag dense, hard-to-read sentences.                      |     |     |
 
 Rule documentation is generated from the rule's own test suite, so every documented example is
 verified behavior.

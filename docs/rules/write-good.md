@@ -12,8 +12,8 @@ by Dániel Kántor, for the inspiration for this rule.
 The rule checks each comment as one unit — a run of adjacent `//` lines, a block, or a JSDoc
 section — so it catches a sentence wrapped across lines, and points at the exact offending word.
 
-Tooling directives (`eslint-disable*`, `@ts-expect-error`, and the rest) stay exempt, but the rule
-checks a directive's justification as ordinary prose and skips JSDoc `@example` and `@see` sections.
+Tooling directives (`eslint-disable*`, `@ts-expect-error`, and the rest) stay exempt. The rule
+checks a directive's justification as prose. It skips JSDoc `@example` and `@see` sections.
 
 The rule provides no autofix: rewriting prose is a writing decision, not a mechanical one.
 
@@ -184,4 +184,20 @@ The following patterns are not considered problems:
 ```js
 // the only cache
 // "comment-slop/write-good": ["error",{"whitelist":["only"]}]
+```
+
+### Code and links
+
+Words inside inline code, code fences, and URLs are not prose, so write-good leaves them alone.
+
+The following patterns are not considered problems:
+
+```js
+// pass `only` to disable the check
+// "comment-slop/write-good": ["error"]
+```
+
+```js
+// see https://example.com/several/things
+// "comment-slop/write-good": ["error"]
 ```

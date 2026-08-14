@@ -212,7 +212,7 @@ describe('directives', () => {
     'globals foo, bar',
     'exported foo',
     'istanbul ignore if',
-    // Split so vitest's raw-file scanner does not read these as real environment docblocks.
+    // Split so vitest's raw-file scanner ignores these as environment docblocks.
     '@vitest' + '-environment jsdom',
     '@jest' + '-environment node',
     'webpackChunkName: "chunk"',

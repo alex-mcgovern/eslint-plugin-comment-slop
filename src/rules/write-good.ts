@@ -3,7 +3,7 @@ import type { Rule } from 'eslint'
 import writeGoodLib from 'write-good'
 
 import { extractLogicalComments } from '../extract.js'
-import { sourceRangeForSpan } from '../normalize.js'
+import { sourceRangeForSpan, toProse } from '../normalize.js'
 
 type WriteGoodOptions = NonNullable<Parameters<typeof writeGoodLib>[1]>
 
@@ -31,8 +31,8 @@ const CHECK_NAMES = [
  * The rule checks each comment as one unit — a run of adjacent `//` lines, a block, or a JSDoc
  * section — so it catches a sentence wrapped across lines, and points at the exact offending word.
  *
- * Tooling directives (`eslint-disable*`, `@ts-expect-error`, and the rest) stay exempt, but the rule
- * checks a directive's justification as ordinary prose and skips JSDoc `@example` and `@see` sections.
+ * Tooling directives (`eslint-disable*`, `@ts-expect-error`, and the rest) stay exempt. The rule
+ * checks a directive's justification as prose. It skips JSDoc `@example` and `@see` sections.
  *
  * The rule provides no autofix: rewriting prose is a writing decision, not a mechanical one.
  *
@@ -67,7 +67,7 @@ export const writeGood: Rule.RuleModule = {
     return {
       'Program:exit'() {
         for (const comment of extractLogicalComments(context.sourceCode)) {
-          for (const problem of writeGoodLib(comment.text, options)) {
+          for (const problem of writeGoodLib(toProse(comment.text), options)) {
             const [start, end] =
               sourceRangeForSpan(comment.words, problem.index, problem.index + problem.offset) ?? comment.range
             context.report({

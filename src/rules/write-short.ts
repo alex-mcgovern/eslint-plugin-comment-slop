@@ -25,8 +25,8 @@ const LIMIT_SCHEMA = { anyOf: [{ minimum: 1, type: 'integer' }, { enum: [false] 
  * never changes its length.
  *
  * Tooling directives (`eslint-disable*`, `@ts-expect-error`, `biome-ignore`, `prettier-ignore`,
- * coverage and bundler pragmas, and similar) stay exempt. The rule lints a directive's justification
- * as ordinary prose.
+ * coverage and bundler pragmas, and similar) stay exempt. The rule lints the justification a
+ * directive carries as prose.
  *
  * The rule provides no autofix: shortening prose is a writing decision, not a mechanical one.
  *
@@ -34,12 +34,14 @@ const LIMIT_SCHEMA = { anyOf: [{ minimum: 1, type: 'integer' }, { enum: [false] 
  *
  * Either a single number, applied to every comment kind:
  *
+ * @example
  * ```js
  * 'comment-slop/write-short': ['warn', 120]
  * ```
  *
  * Or an object with per-kind limits; omitted kinds default to `80`, and `false` disables a kind:
  *
+ * @example
  * ```js
  * 'comment-slop/write-short': ['warn', { line: 80, block: 120, jsdoc: false }]
  * ```
