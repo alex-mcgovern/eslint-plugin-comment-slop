@@ -40,7 +40,7 @@
     "@types/node": "25.5.0",
     "@types/write-good": "1.0.3",
     "eslint": "9.39.4",
-    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-eslint-plugin": "7.6.1",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsdoc": "62.9.0",
