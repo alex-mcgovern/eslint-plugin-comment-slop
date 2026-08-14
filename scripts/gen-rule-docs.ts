@@ -69,7 +69,7 @@ function toTemplateExample(ruleName: string, example: ValidCase): { code: string
   }
 }
 
-/** Renders one rule's `docs/rules/<name>.md` (prettier-formatted) from its JSDoc and cases. */
+/** Renders one rule's `docs/rules/<name>.md` from its JSDoc and cases. */
 export async function buildRuleDoc(ruleName: string): Promise<string> {
   const template = Handlebars.compile(readFileSync(TEMPLATE_PATH, 'utf8'))
   const rendered = template({

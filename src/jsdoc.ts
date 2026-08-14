@@ -28,7 +28,7 @@ const JSDOC_TOKENIZERS = [
   tokenizers.description('preserve'),
 ]
 
-/** Tags whose content is a reference or code rather than prose, so length limits don't apply. */
+/** Tags whose content is code or a reference, not prose, so limits don't apply. */
 export const DEFAULT_IGNORED_JSDOC_TAGS: readonly string[] = ['example', 'see']
 
 interface JsdocSection {
@@ -36,7 +36,7 @@ interface JsdocSection {
   label: string
 }
 
-/** Splits a JSDoc block into prose sections (description, then one per tag), excluding syntax. */
+/** Splits a JSDoc block into prose sections: the description, then one per tag. */
 export function extractJsdocSections(
   rawText: string,
   rawSourceStart: number,

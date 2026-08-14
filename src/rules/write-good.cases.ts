@@ -1,6 +1,5 @@
 import type { CaseGroup } from './cases.js'
 
-/** Every `write-good` case, grouped by theme; run as tests and rendered as documentation. */
 export const caseGroups: CaseGroup[] = [
   {
     description:
@@ -111,6 +110,15 @@ export const caseGroups: CaseGroup[] = [
         options: [{ passive: false }],
       },
       { code: '// the only cache', name: '"only" exempted via whitelist', options: [{ whitelist: ['only'] }] },
+    ],
+  },
+  {
+    description: 'Words inside inline code, code fences, and URLs are not prose, so write-good leaves them alone.',
+    invalid: [],
+    title: 'Code and links',
+    valid: [
+      { code: '// pass `only` to disable the check', name: 'a flagged word inside inline code is ignored' },
+      { code: '// see https://example.com/several/things', name: 'a flagged word inside a URL is ignored' },
     ],
   },
 ]

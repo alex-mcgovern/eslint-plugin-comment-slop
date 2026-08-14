@@ -4,7 +4,7 @@ export interface TextChunk {
   text: string
 }
 
-/** One word of the normalized text, tying its position there back to its source index. */
+/** One word of the normalized text, mapping its position back to the source. */
 export interface WordSpan {
   length: number
   sourceStart: number
@@ -19,7 +19,12 @@ interface NormalizedText {
 
 const WORD_PATTERN = /\S+/gu
 
-/** Collapses chunks of comment prose into one space-separated string, tracking each word's origin. */
+const FENCED_CODE = /```[\s\S]*?```/gu
+const INLINE_CODE = /`[^`]*`/gu
+const MARKDOWN_LINK = /\[([^\]]*)\]\(([^)]*)\)/gu
+const BARE_URL = /\bhttps?:\/\/[^\s)]+/gu
+
+/** Joins comment prose chunks into one string, tracking each word's origin. */
 export function buildNormalizedText(chunks: readonly TextChunk[]): NormalizedText {
   const parts: string[] = []
   const words: WordSpan[] = []
@@ -43,7 +48,7 @@ export function buildNormalizedText(chunks: readonly TextChunk[]): NormalizedTex
   }
 }
 
-/** Maps a normalized-text `[start, end)` span back to its source range, or null if it covers no word. */
+/** Maps a normalized `[start, end)` span to a source range, or null if none. */
 export function sourceRangeForSpan(words: readonly WordSpan[], start: number, end: number): [number, number] | null {
   let sourceStart: number | null = null
   let sourceEnd = 0
@@ -57,4 +62,13 @@ export function sourceRangeForSpan(words: readonly WordSpan[], start: number, en
   }
 
   return sourceStart === null ? null : [sourceStart, sourceEnd]
+}
+
+/** Blanks code, links, and URLs (same length) so prose rules skip markup. */
+export function toProse(text: string): string {
+  return text
+    .replace(FENCED_CODE, (match) => ' '.repeat(match.length))
+    .replace(INLINE_CODE, (match) => ' '.repeat(match.length))
+    .replace(MARKDOWN_LINK, (_match: string, label: string, url: string) => ` ${label} ${' '.repeat(url.length + 2)}`)
+    .replace(BARE_URL, (match) => ' '.repeat(match.length))
 }

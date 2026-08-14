@@ -13,7 +13,7 @@ interface ExtractOptions {
   jsdocIgnoredTags?: readonly string[]
 }
 
-/** A unit of comment prose: merged `//` runs, blocks, JSDoc sections, justifications. */
+/** A unit of comment prose: a merged `//` run, a block, or a JSDoc section. */
 export interface LogicalComment {
   kind: LogicalCommentKind
   label: string
@@ -28,10 +28,7 @@ const LINE_MARKER_LENGTH = '//'.length
 const BLOCK_MARKER_LENGTH = '/*'.length
 const BLOCK_GUTTER = /^\s*\*(?=\s|$)/u
 
-/**
- * Extracts every logical comment from a file, applying merging, normalization, directive
- * carve-outs, and JSDoc sectioning.
- */
+/** Extracts every logical comment: merged `//` runs, blocks, and JSDoc sections. */
 export function extractLogicalComments(sourceCode: SourceCode, options: ExtractOptions = {}): LogicalComment[] {
   const ignoredJsdocTags = new Set(
     (options.jsdocIgnoredTags ?? DEFAULT_IGNORED_JSDOC_TAGS).map((tag) => tag.toLowerCase()),

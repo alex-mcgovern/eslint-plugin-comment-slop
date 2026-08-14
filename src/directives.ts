@@ -52,7 +52,7 @@ const JUSTIFICATION_START_FINDERS = {
   trailing: (_value: string, directiveEnd: number): number | null => directiveEnd,
 } satisfies Record<JustificationStyle, (value: string, directiveEnd: number) => number | null>
 
-/** Recognises tooling directives, returning any justification text for linting as prose. */
+/** Detects a tooling directive and returns its justification, to lint as prose. */
 export function matchDirective(
   value: string,
   valueSourceStart: number,
