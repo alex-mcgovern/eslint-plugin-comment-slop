@@ -33,7 +33,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "comment-parser": "1.4.1",
+    "comment-parser": "1.4.8",
     "write-good": "1.0.8"
   },
   "devDependencies": {
